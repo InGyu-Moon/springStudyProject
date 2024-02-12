@@ -2,9 +2,11 @@ package ingyu.studyproject.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @Table(name = "USER")
 @NoArgsConstructor
 public class UserEntity {
