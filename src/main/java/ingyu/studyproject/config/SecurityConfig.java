@@ -28,11 +28,23 @@ public class SecurityConfig {
          */
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/","/login","/loginSuccess","/join","/joinSuccess").permitAll()
+                        .requestMatchers("/","/login","/logout","/loginSuccess","/join","/joinSuccess").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/my/**").hasAnyRole("ADMIN","USER")
                         .anyRequest().authenticated() // 나머지 경로에 대해서 로그인한 사용자는 접근 허용
 //                        .anyRequest().denyAll() // 모두 접근 불가
+                );
+        /**
+         * 다중 로그인 설정
+         * maximumSessions를 통해 로그인 가능한 세션의 수를 설정한다.
+         * maxSessionsPreventsLogin으로 로그인 초과시 로그인 차단을 설정할 수 있다.
+         * true이면 새로운 로그인을 차단한다.
+         * false면 기존 로그인을 차단한다.
+         */
+        http
+                .sessionManagement( (auth) -> auth
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(true)
                 );
 
         http
@@ -42,13 +54,25 @@ public class SecurityConfig {
                         .permitAll()
                 );
 
-        /**
-         * 일단 csrf 토큰 비활성화
-         */
         http
-                .csrf((auth) -> auth
-                        .disable()
+                .logout((auth) -> auth
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
                 );
+
+        /**
+         * 개발환경에서는 csrf 토큰 비활성화 해도 되지만
+         * 배포를 할때는 csrf 공격을 방지하기 위해 활성화 해야한다.
+         * 활성화를 하면 post 전송을 하는 form 태크 내부에
+         * <input type="hidden" name="_csrf" th:value="${_csrf.token}"> 를 추가해줘야 한다.
+         * default 값은 enable이다.
+         */
+//        http
+//                .csrf((auth) -> auth
+//                        .disable()
+//                );
 
         return http.build();
     }
