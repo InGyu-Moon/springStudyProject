@@ -24,11 +24,11 @@ public class SecurityConfig {
          * 만약 아래와 같은 코드가 있을경우
          * .requestMatchers("/").permitAll()
          * .requestMatchers("/").denyAll()
-         * 첫줄에서 이미 permitAll()을 했으므로 deyALL()은 무시된다.
+         * 첫줄에서 이미 permitAll()을 했으므로 denyALL()은 무시된다.
          */
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/","/login","/logout","/loginSuccess","/join","/joinSuccess").permitAll()
+                        .requestMatchers("/","/login","/logout","/loginSuccess","/join","/joinSuccess","/visit").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/my/**").hasAnyRole("ADMIN","USER")
                         .anyRequest().authenticated() // 나머지 경로에 대해서 로그인한 사용자는 접근 허용
