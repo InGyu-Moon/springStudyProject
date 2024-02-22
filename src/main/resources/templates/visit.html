@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +8,6 @@
 visit
 <br>
 <button onclick="location.href='/'">메인페이지</button>
-<h3>전체 방문자수: [[${total}]]</h3>
+<h3>전체 방문자수: <span th:text="${total}"></span></h3>
 </body>
 </html>

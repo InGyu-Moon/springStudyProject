@@ -23,7 +23,7 @@ public class SecurityConfig {
          * 동작 순서는 상단 부터 적용된다. (순서 유의)
          * 만약 아래와 같은 코드가 있을경우
          * .requestMatchers("/").permitAll()
-         * .requestMatchers("/").denyAll()
+         * .requestMatchers("/").denyAll()          
          * 첫줄에서 이미 permitAll()을 했으므로 denyALL()은 무시된다.
          */
         http

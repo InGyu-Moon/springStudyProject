@@ -15,7 +15,7 @@ public class JoinController {
 
     @GetMapping("/join")
     public String joinP(){
-        return "/join";
+        return "join";
     }
     @PostMapping("/joinSuccess")
     public String joinSuccess(JoinDTO joinDTO){
