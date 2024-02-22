@@ -1,15 +1,21 @@
-
 spring:
   datasource:
-    #    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/study-project
 #    username: root
 #    password: my-secret-pw
-    url: jdbc:oracle:thin:@127.0.0.1:1521:xe
-    username: root
-    password: 1234
-
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@127.0.0.1:1521:xe
+#    username: root
+#    password: 1234
+#      url: jdbc:mysql://127.0.0.1:3307/spring-test-db
+#      username: root
+#      password: 1234
+      driver-class-name: ${SPRING_DATASOURCE_DRIVER}
+      url: ${SPRING_DATASOURCE_URL}
+      username: ${SPRING_DATASOURCE_USERNAME}
+      password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop

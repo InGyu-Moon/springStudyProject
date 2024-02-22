@@ -38,3 +38,8 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// dockerfile에서 빌드를 하면 jar 파일이 2개 생기는데 1개만 생기도록 설정
+jar {
+    enabled = false
+}
