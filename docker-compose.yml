@@ -2,6 +2,8 @@ version: '3'
 services:
   my-database:
     build:
+      # context 없이 dockerfile: ./docker-test-db/Dockerfile로 작성해도 문제없다
+      # 하지만 그러면 db Dockerfile에서 copy를 할때 파일을 못찾는다.
       context: ./docker-test-db
       dockerfile: Dockerfile
     ports:
