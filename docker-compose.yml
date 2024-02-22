@@ -1,0 +1,32 @@
+version: '3'
+services:
+  my-database:
+    build:
+      context: ./docker-test-db
+      dockerfile: Dockerfile
+    ports:
+      - 3307:3306
+    volumes:
+      - ./docker-test-db/store:/var/lib/mysql
+    networks:
+      - my-network
+  my-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - my-database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://my-database:3306/spring-test-db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      #?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_DRIVER: com.mysql.jdbc.Driver
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
+    networks:
+      - my-network
+
+networks:
+  my-network:
