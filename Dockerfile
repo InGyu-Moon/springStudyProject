@@ -10,12 +10,13 @@ RUN sed -i 's/\r$//' gradlew
 
 # RUN은 현재 파일을 위치를 기반으로 작동함
 RUN chmod +x ./gradlew
+# -x test 추가
 RUN ./gradlew clean build -x test
 
 ENV JAR_PATH=/app/build/libs
 RUN mv ${JAR_PATH}/*.jar /app/app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar" ]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar" ]
 
 
 
