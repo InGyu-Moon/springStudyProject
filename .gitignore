@@ -37,4 +37,5 @@ out/
 .vscode/
 
 ### docker ###
-./docker-test-db/store
+./docker-test-db/store/
+./target/
