@@ -12,6 +12,16 @@ services:
       - ./docker-test-db/store:/var/lib/mysql
     networks:
       - my-network
+
+
+  my-radis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - my-network
+
   my-server:
     build:
       context: ./
@@ -21,6 +31,7 @@ services:
       - 8080:8080
     depends_on:
       - my-database
+      - my-radis
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://my-database:3306/spring-test-db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       #?useSSL=false&allowPublicKeyRetrieval=true
