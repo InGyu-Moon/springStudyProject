@@ -14,7 +14,7 @@ services:
       - my-network
 
 
-  my-radis:
+  my-redis:
     image: redis:latest
     restart: always
     ports:
@@ -30,12 +30,13 @@ services:
     ports:
       - 8080:8080
     depends_on:
+      - my-redis
       - my-database
-      - my-radis
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://my-database:3306/spring-test-db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
       #?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_DRIVER: com.mysql.jdbc.Driver
+#      SPRING_DATASOURCE_DRIVER: com.mysql.jdbc.Driver
+      SPRING_DATASOURCE_DRIVER: com.mysql.cj.jdbc.Driver
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 1234
     networks:

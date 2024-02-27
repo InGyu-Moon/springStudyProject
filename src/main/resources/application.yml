@@ -1,11 +1,22 @@
 spring:
   profiles:
     active:
-      - local
+      - prod
+  data:
+    redis:
+      host: my-redis
+      port: 6379
 
   session:
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      password:
     store-type: redis
+#    redis:
+#      host: my-redis
+#      port: 6379
+#      password:
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          redis: DEBUG
